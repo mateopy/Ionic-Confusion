@@ -1,9 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, ActionSheetController,ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ActionSheetController, ModalController } from 'ionic-angular';
 import { Dish } from '../../shared/dish';
-import { Comment } from '../../shared/comment';
-import { FavoriteProvider } from '../../providers/favorite/favorite';
 import { CommentPage } from '../comment/comment';
+import { FavoriteProvider } from '../../providers/favorite/favorite';
 
 /**
  * Generated class for the DishdetailPage page.
@@ -21,25 +20,26 @@ export class DishdetailPage {
   errMess: string;
   avgstars: string;
   numcomments: number;
-  favorite: boolean;
+  favorite: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
     @Inject('BaseURL') private BaseURL,
     private favoriteservice: FavoriteProvider,
+    private actionSheetCtrl: ActionSheetController,
     private toastCtrl: ToastController,
-    public actionSheetCtrl: ActionSheetController,
-    public modalCtrl: ModalController) {
-      this.dish = navParams.get('dish');
-      this.favorite = favoriteservice.isFavorite(this.dish.id);
-      this.numcomments = this.dish.comments.length;
-      let total = 0;
-      this.dish.comments.forEach(comment => total += comment.rating );
-      this.avgstars = (total/this.numcomments).toFixed(2);
-    
+    private modalCtrl: ModalController) {
+
+    this.dish = navParams.get('dish');
+    this.favorite = favoriteservice.isFavorite(this.dish.id);
+    this.numcomments = this.dish.comments.length;
+    let total = 0;
+    this.dish.comments.forEach(comment => total += comment.rating );
+    this.avgstars = (total/this.numcomments).toFixed(2);
   }
 
   addToFavorites() {
-    console.log('Adding to Favorites', this.dish.id);
     this.favorite = this.favoriteservice.addFavorite(this.dish.id);
     this.toastCtrl.create({
       message: 'Dish ' + this.dish.id + ' added as favorite successfully',
@@ -47,23 +47,35 @@ export class DishdetailPage {
       duration: 3000}).present();
   }
 
+  openComment() {
+
+    let modal = this.modalCtrl.create(CommentPage);
+    modal.onDidDismiss(
+      data => {
+      if(data){
+        data.value.date=new Date();
+        this.dish.comments.push(data.value)
+        this.numcomments++;
+      }
+     
+ });
+    modal.present();
+  }
   presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Select Action',
+      title: 'Select Actions',
       buttons: [
         {
           text: 'Add to Favorites',
           handler: () => {
             this.addToFavorites();
           }
-        },
-        {
-          text: 'Add a Comment',
+        },{
+          text: 'Add Comment',
           handler: () => {
-            this.openComment()
+            this.openComment();
           }
-        },
-        {
+        },{
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
@@ -72,22 +84,7 @@ export class DishdetailPage {
         }
       ]
     });
- 
     actionSheet.present();
-  }
-
-  openComment() {
-
-    let modal = this.modalCtrl.create(CommentPage);
-    modal.onDidDismiss(data => {
-      if (data) {this.dish.comments.push(data);}
-      
-    });
-    modal.present();
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DishdetailPage');
   }
 
 }

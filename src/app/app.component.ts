@@ -11,6 +11,7 @@ import { DishdetailPage } from '../pages/dishdetail/dishdetail';
 import { FavoritesPage } from '../pages/favorites/favorites';
 import { ReservationPage } from '../pages/reservation/reservation';
 
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -51,6 +52,8 @@ export class MyApp {
     let modal = this.modalCtrl.create(ReservationPage);
     modal.present();
   }
+
+  
 
   openPage(page) {
     // Reset the content nav to have just this page
