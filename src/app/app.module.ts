@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { EmailComposer } from '@ionic-native/email-composer';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -69,7 +70,8 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     ProcessHttpmsgProvider,
     { provide: 'BaseURL', useValue: baseURL },
     FavoriteProvider,
-    EmailComposer
+    EmailComposer,
+    SocialSharing
   ]
 })
 export class AppModule {}
