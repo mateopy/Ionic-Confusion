@@ -17,31 +17,37 @@ import { CallNumber } from '@ionic-native/call-number';
 })
 export class ContactPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private emailComposer: EmailComposer, private callNumber: CallNumber) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private emailComposer: EmailComposer,
+    private callNumber: CallNumber
+  ) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ContactPage');
   }
 
   sendEmail() {
-
     let email = {
       to: 'confusion@food.net',
       subject: '[ConFusion]: Query',
       body: 'Dear Sir/Madam:',
       isHtml: true
     };
-
     // Send a text message using default options
     this.emailComposer.open(email);
   }
 
-  callRestaurant() {
-    this.callNumber.callNumber("+85212345678", true)
-      .then(res => console.log('Launched dialer!', res))
-      .catch(err => console.log('Error launching dialer', err));
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ContactPage');
+  callPhoneNumber() {
+    console.log('welcome to call');
+    this.callNumber.callNumber("+852 1234 5678", true)
+      .then((response) => {
+        console.log('called someone', response);
+      }).catch((error) => {
+        console.log('something happened', error);
+      });
   }
 
 }

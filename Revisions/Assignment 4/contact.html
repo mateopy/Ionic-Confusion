@@ -1,0 +1,57 @@
+<!--
+  Generated template for the ContactPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>contact</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<ion-card>
+<ion-card-content>
+  <ion-card-title color="primary">
+  Our Address
+  </ion-card-title>
+  <address>
+  121, Clear Water Bay Road<br/>
+  Clear Water Bay, Kowloon<br/>
+  HONG KONG<br/>
+  <ion-list no-lines>
+    <ion-item>
+      <ion-icon ios="ios-call" md="md-call"></ion-icon>: +852 1234 5678
+    </ion-item>
+    <ion-item>
+      <ion-icon ios="ios-print" md="md-print"></ion-icon>: +852 8765 4321
+    </ion-item>
+    <ion-item>
+      <ion-icon ios="ios-mail" md="md-mail"></ion-icon>:confusion@food.net
+    </ion-item>
+  </ion-list>
+  </address>
+  <ion-row>
+    <ion-col>
+    <button ion-button icon-left clear small (click)="callPhoneNumber()">
+      <ion-icon ios="ios-call" md="md-call"></ion-icon>Call
+      <!-- : +852 1234 5678 -->
+    </button>
+    </ion-col>
+    <ion-col>
+    <button ion-button icon-left clear small (click)="sendEmail()">
+      <ion-icon ios="ios-mail" md="md-mail"></ion-icon>Mail
+      <!-- :confusion@food.net -->
+    </button>
+    </ion-col>
+  </ion-row>
+</ion-card-content>
+</ion-card>
+</ion-content>
